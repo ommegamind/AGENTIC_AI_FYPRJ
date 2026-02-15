@@ -4,6 +4,7 @@ import{ContactUsPage}from "../components/ContactUsPage"
 import{PrivacyPolicyPage}from "../components/PrivacyPolicyPage"
 import{TermsOfServicePage}from "../components/TermsOfServicePage"
 import { NavbarPageLayout } from "../components/Navbar/NavbarPageLayout"
+import { PromptPage } from "../components/PromptPage/PromptPage"
 
 let router=createBrowserRouter([
         {
@@ -26,6 +27,12 @@ let router=createBrowserRouter([
                     Component:TermsOfServicePage
                 }
             ]
+        },{
+            path:"prompt-page",
+            Component:PromptPage,
+            loader:()=>{
+                return true;
+            }
         }
     ])
 
