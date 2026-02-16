@@ -5,6 +5,7 @@ import{PrivacyPolicyPage}from "../components/PrivacyPolicyPage"
 import{TermsOfServicePage}from "../components/TermsOfServicePage"
 import { NavbarPageLayout } from "../components/Navbar/NavbarPageLayout"
 import { PromptPage } from "../components/PromptPage/PromptPage"
+import { SignInPage } from "../components/SignInPage"
 
 let router=createBrowserRouter([
         {
@@ -25,13 +26,17 @@ let router=createBrowserRouter([
                 {
                     path:"/terms-of-service",
                     Component:TermsOfServicePage
+                },
+                {
+                    path:"/sign-in",
+                    Component:SignInPage
                 }
             ]
         },{
             path:"prompt-page",
             Component:PromptPage,
             loader:()=>{
-                return true;
+                return false;
             }
         }
     ])
