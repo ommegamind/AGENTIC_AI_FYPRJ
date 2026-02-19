@@ -1,10 +1,8 @@
 import { Router } from "express";
+import { handleAddUser } from "../controller/signInHandlers.js";
 
 const router=Router();
 
-router.post("/",async (req,res)=>{
-    const {user_name, user_password}= await(req.body);
-    console.log(user_name,user_password);
-})
+router.post("/", handleAddUser);
 
 export default router;
