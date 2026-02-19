@@ -1,13 +1,24 @@
 import { useState } from "react"
-
+import {useMutation} from "@tanstack/react-query"
+import { addUser } from "../controller/userRegistration"
 
 export const SignInPage=()=>{
     const [userName, setUserName]=useState("")
-    const [password, setPassword]=useState("")
+    const [userPassword, setPassword]=useState("")
     const [message, setMessage]=useState("Welcome")
+    const mutation = useMutation((newUser)=>addUser(newUser))
 
     const handleSubmit =()=>{
-        setMessage(`Hii \n Name: ${userName}\n Password: ${password}`)
+        setMessage(`Hii \n Name: ${userName}\n Password: ${userPassword}`)
+        const signInBody = {
+            user_name: userName,
+            user_password: userPassword
+        }
+
+        mutation.mutate(signInBody);
+
+        setUserName("");
+        setPassword("");
     }
 
     return(
