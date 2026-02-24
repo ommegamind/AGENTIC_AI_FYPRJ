@@ -1,6 +1,6 @@
 import { useState } from "react"
 import {useMutation} from "@tanstack/react-query"
-import { addUser } from "../controller/userRegistration"
+import { addUser } from "../controller/userRegistration.js"
 
 export const SignInPage=()=>{
     const [userName, setUserName]=useState("")
@@ -10,11 +10,11 @@ export const SignInPage=()=>{
 
     const handleSubmit =()=>{
         setMessage(`Hii \n Name: ${userName}\n Password: ${userPassword}`)
-        const signInBody = {
-            user_name: userName,
-            user_password: userPassword
-        }
 
+        const signInBody={
+            user_name: userName,
+            user_password: userPassword,
+        }
         mutation.mutate(signInBody);
 
         setUserName("");

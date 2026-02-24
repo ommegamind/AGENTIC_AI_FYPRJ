@@ -4,6 +4,7 @@ export const addUser=async(newUser)=>{
         headers:{
             "Content-Type":"application/json"
         },
+        credentials:"include",
         body:JSON.stringify(newUser)
     })
 }
