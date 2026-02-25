@@ -11,7 +11,7 @@ export const handleAddUser= (req,res)=>{
 
     const {accessToken, refreshToken}=tokenHandler(userData)
     res.cookie("pigonAT", accessToken,{
-        httpOnly:false,
+        httpOnly:true,
         sameSite:"lax",
         path:"/"
     });
