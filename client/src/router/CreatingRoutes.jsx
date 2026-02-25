@@ -6,6 +6,7 @@ import{TermsOfServicePage}from "../components/TermsOfServicePage"
 import { NavbarPageLayout } from "../components/Navbar/NavbarPageLayout"
 import { PromptPage } from "../components/PromptPage/PromptPage"
 import { SignInPage } from "../components/SignInPage"
+import { cookieFetch } from "../controller/cookieFetchHandler"
 
 let router=createBrowserRouter([
         {
@@ -36,7 +37,8 @@ let router=createBrowserRouter([
             path:"prompt-page",
             Component:PromptPage,
             loader:()=>{
-                return false;
+                const access =cookieFetch();
+                return access;
             }
         }
     ])
