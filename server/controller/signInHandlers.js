@@ -1,4 +1,4 @@
-import { dbAddUserHandler } from "../model/addUserModel.js";
+import { dbAddUserHandler, dbRemoveUserHandler } from "../model/addUserModel.js";
 import { tokenHandler } from "./tokenHandler.js";
 
 export const handleAddUser= (req,res)=>{
@@ -22,4 +22,21 @@ export const handleAddUser= (req,res)=>{
     })
     res.send("cookies set")
     dbAddUserHandler(user_name, user_password, refreshToken);
+}
+
+export const handleRemoveUser=async(req, res)=>{
+    const refreshToken=req.cookies.pigonRT;
+    const removeResponse =dbRemoveUserHandler(refreshToken);
+    if(removeResponse){
+        res.cookie("pigonRT", "lol",{
+            httpOnly: true,
+            sameSite:"lax",
+            path:"/"
+        });
+        res.cookie("pigonAT", accessToken,{
+            httpOnly:true,
+            sameSite:"lax",
+            path:"/"
+        });
+    }
 }

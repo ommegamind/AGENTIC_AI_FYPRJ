@@ -10,3 +10,15 @@ export const dbAddUserHandler= async(name, password, refreshToken)=>{
         console.log(err);
     }
 }
+
+export const dbRemoveUserHandler= async(userToken)=>{
+    try{
+        const removeUser=await pool.query(
+            "DELETE FROM trial WHERE user_refresh_token =$1",
+            [userToken]
+        )
+        console.log(`db remove query ${removeUser.rowCount}`);
+    }catch(err){
+        console.log(err);
+    }
+}

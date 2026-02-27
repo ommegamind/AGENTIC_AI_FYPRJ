@@ -35,20 +35,20 @@ export const cookieGetHandle=async(req, res)=>{
                     }
                 }
             }catch(err){
-                res.json(response);
+                console.log(`cookieHandler ${err}`);
             }
         }
         
     }else{
         console.log("NO TOKEN");
     }
-    if(newToken){
-            res.cookie("pigonAT", useNewToken,{
-                httpOnly:true,
-                sameSite:"lax",
-                path:"/"
-                });
-    }
+    // if(newToken){
+    //         res.cookie("pigonAT", useNewToken,{
+    //             httpOnly:true,
+    //             sameSite:"lax",
+    //             path:"/"
+    //             });
+    // }
 
     res.json(response);
 }

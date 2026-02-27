@@ -1,8 +1,9 @@
 import { Router } from "express";
-import { handleAddUser } from "../controller/signInHandlers.js";
+import { handleAddUser, handleRemoveUser } from "../controller/signInHandlers.js";
 
 const router=Router();
 
 router.post("/", handleAddUser);
+router.get("/logout", handleRemoveUser);
 
 export default router;
