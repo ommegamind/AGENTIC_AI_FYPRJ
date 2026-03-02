@@ -10,7 +10,7 @@ export const Navbar=()=>{
         <br />
         <Link to={"/terms-of-service"}>Terms</Link>
         <br />
-        <Link to={"/prompt-page"}>Prompt</Link>
+        <Link to={"/prompt-page"}>Prompt/Login</Link>
         <br />
         <Link to={"/sign-in"}>Sign In</Link>
     </>)

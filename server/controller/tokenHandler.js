@@ -11,7 +11,7 @@ export const tokenHandler=(userData)=>{
 
     const refreshToken = jwt.sign({
             data: userData
-        }, process.env.JWT_PRIVATE, {expiresIn: '1m'})
+        }, process.env.JWT_PRIVATE, {expiresIn: '20m'})
 
     return {accessToken, refreshToken}
 

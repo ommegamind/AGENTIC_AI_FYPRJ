@@ -1,10 +1,10 @@
 import pool from "../config/pgModel.js";
 
-export const dbAddUserHandler= async(name, password, refreshToken)=>{
+export const dbAddUserHandler= async(userData, refreshToken)=>{
     try{
         await pool.query(
-            "INSERT INTO trial (user_name, user_password, user_refresh_token) VALUES ($1, $2, $3)",
-            [name, password, refreshToken]
+            "INSERT INTO pigeondb (user_refresh_token, user_google_token) VALUES ($1, $2)",
+            [refreshToken, userData]
         )
     }catch(err){
         console.log(err);
@@ -14,7 +14,7 @@ export const dbAddUserHandler= async(name, password, refreshToken)=>{
 export const dbRemoveUserHandler= async(userToken)=>{
     try{
         const removeUser=await pool.query(
-            "DELETE FROM trial WHERE user_refresh_token =$1",
+            "DELETE FROM pigeondb WHERE user_refresh_token =$1",
             [userToken]
         )
         console.log(`db remove query ${removeUser.rowCount}`);

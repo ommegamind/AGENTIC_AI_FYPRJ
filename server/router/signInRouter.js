@@ -1,9 +1,12 @@
 import { Router } from "express";
-import { handleAddUser, handleRemoveUser } from "../controller/signInHandlers.js";
+import {handleRemoveUser, userGooglAuth } from 
+"../controller/signInHandlers.js";
 
 const router=Router();
 
-router.post("/", handleAddUser);
+// router.post("/", handleAddUser);
 router.get("/logout", handleRemoveUser);
+
+router.get("/check", userGooglAuth)
 
 export default router;

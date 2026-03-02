@@ -1,8 +1,12 @@
 import express from "express"
 import cors from "cors"
 import cookieParser from "cookie-parser"
+import session from "express-session";
+
 import signInRouter from "./router/signInRouter.js"
 import cookieRouter from "./router/cookieRouter.js"
+import promptRouter from "./router/promptRouter.js"
+import { authScreenHandler } from "./controller/signInHandlers.js";
 
 
 const app= express()
@@ -15,9 +19,17 @@ app.use(cors({
 
 app.use(express.json());
 app.use(cookieParser());
+app.use(session({
+  secret: process.env.SECRET_KEY,
+  resave: false,
+  saveUninitialized: false
+}));
 
 app.use("/signin", signInRouter)
 app.use("/cookies", cookieRouter)
+app.use("/prompts", promptRouter)
+
+app.get("/authScreen",authScreenHandler)
 
 app.get("/",(req, res)=>{
     res.end("HEY YOU GOT THIS FAR?")

@@ -7,6 +7,7 @@ import { NavbarPageLayout } from "../components/Navbar/NavbarPageLayout"
 import { PromptPage } from "../components/PromptPage/PromptPage"
 import { SignInPage } from "../components/SignInPage"
 import { cookieFetch } from "../controller/cookieFetchHandler"
+import { LoginBtn } from "../components/Navbar/LoginBtn"
 
 let router=createBrowserRouter([
         {
@@ -31,6 +32,9 @@ let router=createBrowserRouter([
                 {
                     path:"/sign-in",
                     Component:SignInPage
+                },{
+                    path:"/login",
+                    Component:LoginBtn
                 }
             ]
         },{
