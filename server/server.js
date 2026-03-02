@@ -3,7 +3,7 @@ import cors from "cors"
 import cookieParser from "cookie-parser"
 import session from "express-session";
 
-import signInRouter from "./router/signInRouter.js"
+import userAuthRouter from "./router/userAuthRouter.js"
 import cookieRouter from "./router/cookieRouter.js"
 import promptRouter from "./router/promptRouter.js"
 import { authScreenHandler } from "./controller/signInHandlers.js";
@@ -25,7 +25,7 @@ app.use(session({
   saveUninitialized: false
 }));
 
-app.use("/signin", signInRouter)
+app.use("/signin", userAuthRouter)
 app.use("/cookies", cookieRouter)
 app.use("/prompts", promptRouter)
 

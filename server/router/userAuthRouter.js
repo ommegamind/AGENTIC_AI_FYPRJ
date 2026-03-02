@@ -4,7 +4,6 @@ import {handleRemoveUser, userGooglAuth } from
 
 const router=Router();
 
-// router.post("/", handleAddUser);
 router.get("/logout", handleRemoveUser);
 
 router.get("/check", userGooglAuth)

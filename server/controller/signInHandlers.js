@@ -38,8 +38,6 @@ export const authScreenHandler =async(req, res)=>{
         res.end('State mismatch. Possible CSRF attack');
     }  else{
     const { tokens } = await oauth2Client.getToken(code);
-    // oauth2Client.setCredentials(tokens);
-    // const setGmail = google.gmail({version: 'v1', auth:oauth2Client});
     
     const {accessToken, refreshToken}=tokenHandler(tokens.access_token);
 
