@@ -12,6 +12,6 @@ export const Navbar=()=>{
         <br />
         <Link to={"/prompt-page"}>Prompt/Login</Link>
         <br />
-        <Link to={"/sign-in"}>Sign In</Link>
+        {/* <Link to={"/sign-in"}>Sign In</Link> */}
     </>)
 }
