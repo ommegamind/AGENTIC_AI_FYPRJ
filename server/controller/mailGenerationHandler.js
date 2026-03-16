@@ -33,5 +33,7 @@ export const mailGenenrator=async(userGoogleToken, mailBody, mailReceiver)=>{
         raw: base64Email
         }
     });
+    
+    return finallySent.status;
     // console.log("mail generation :", finallySent);
 }

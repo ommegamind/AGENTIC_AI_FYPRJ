@@ -9,10 +9,10 @@ export const mailContentGenerator=async(promptText)=>{
         model: "gemini-2.5-flash",
         contents: `prompt: ${promptText}! use the above prompt and return a js obj in the following format {"mailBody":"the content for the mail as requested above", "receiver": here from the above prompt extract the receiver they mentioned, if multiple mentioned extract the first one} return a json string response that can be parsed to JSON.parse`,
     });
-    console.log(response.text);
+
     const promptResponse= response.text.slice(7, -3);
-    console.log(promptResponse);
+
     const reply = JSON.parse(promptResponse);
-    console.log(reply);
+    
     return reply;
 }
