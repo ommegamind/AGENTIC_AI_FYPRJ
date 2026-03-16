@@ -1,17 +1,20 @@
 import { Link } from "react-router"
+import styles from "./Navbar.module.css"
 
 export const Navbar=()=>{
-    return (<>
-        <Link to={"/"}>Home</Link>
-        <br />
-        <Link to={"/privacy-policy"}>Privacy</Link>
-        <br />
-        <Link to={"/contact-us"}>Contact</Link>
-        <br />
-        <Link to={"/terms-of-service"}>Terms</Link>
-        <br />
-        <Link to={"/prompt-page"}>Prompt/Login</Link>
-        <br />
-        {/* <Link to={"/sign-in"}>Sign In</Link> */}
-    </>)
+    return (
+    <div className={styles.Navbar}>
+        <Link to={"/"} className={styles.Navlogo}>Home/LOGO</Link>
+
+        <div className={styles.Navlinkcontainer}>
+            <Link to={"/privacy-policy"} className={styles.Navlink}>Privacy</Link>
+
+            <Link to={"/contact-us"} className={styles.Navlink}>Contact</Link>
+
+            <Link to={"/terms-of-service"} className={styles.Navlink}>Terms</Link>
+
+            <Link to={"/prompt-page"} className={styles.Navlink}>Login</Link>
+        </div>
+    </div>
+    )
 }
