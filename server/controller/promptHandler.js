@@ -8,10 +8,12 @@ export const handleUserAuth=async(req, res)=>{
     const userGoogleToken= await fetchGoogleToken(userRefreshToken);
     console.log("prompt handler server: ", userGoogleToken);
     if (userGoogleToken!=0){
-        //handle user
         const promptText=req.body.promptInput;
         const mailContent = await mailContentGenerator(promptText);
-        await mailGenenrator(userGoogleToken, mailContent);
+        // console.log(`PROMPT HANDLER... `);
+        // console.log(mailContent.mailBody);
+        // console.log(mailContent.receiver);
+        await mailGenenrator(userGoogleToken, mailContent.mailBody, mailContent.receiver);
 
     }else{
         //redirect user

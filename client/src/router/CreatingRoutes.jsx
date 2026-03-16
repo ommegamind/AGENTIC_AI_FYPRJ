@@ -1,13 +1,13 @@
 import{createBrowserRouter, RouterProvider} from "react-router"
-import{HomePage}from "../components/HomePage"
-import{ContactUsPage}from "../components/ContactUsPage"
-import{PrivacyPolicyPage}from "../components/PrivacyPolicyPage"
-import{TermsOfServicePage}from "../components/TermsOfServicePage"
+import{HomePage}from "../components/pages/HomePage"
+import{ContactUsPage}from "../components/pages/ContactUsPage"
+import{PrivacyPolicyPage}from "../components/pages/PrivacyPolicyPage"
+import{TermsOfServicePage}from "../components/pages/TermsOfServicePage"
 import { NavbarPageLayout } from "../components/Navbar/NavbarPageLayout"
 import { PromptPage } from "../components/PromptPage/PromptPage"
-import { SignInPage } from "../components/SignInPage"
+// import { SignInPage } from "../components/SignInPage"
 import { cookieFetch } from "../controller/cookieFetchHandler"
-import { LoginBtn } from "../components/Navbar/LoginBtn"
+// import { LoginBtn } from "../components/Navbar/LoginBtn"
 
 let router=createBrowserRouter([
         {
@@ -29,13 +29,14 @@ let router=createBrowserRouter([
                     path:"/terms-of-service",
                     Component:TermsOfServicePage
                 },
-                {
-                    path:"/sign-in",
-                    Component:SignInPage
-                },{
-                    path:"/login",
-                    Component:LoginBtn
-                }
+                // {
+                //     path:"/sign-in",
+                //     Component:SignInPage
+                // },
+                // {
+                //     path:"/login",
+                //     Component:LoginBtn
+                // }
             ]
         },{
             path:"prompt-page",

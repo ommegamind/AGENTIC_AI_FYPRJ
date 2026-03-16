@@ -9,19 +9,19 @@ const oauth2Client = new google.auth.OAuth2(
   process.env.REDIRECT_URL
 );
 
-export const mailGenenrator=async(userGoogleToken, mailContent)=>{
+export const mailGenenrator=async(userGoogleToken, mailBody, mailReceiver)=>{
     // console.log("mail generation handle: ",userGoogleToken)
     oauth2Client.setCredentials({access_token: userGoogleToken});
     const setGmail = google.gmail({version: 'v1', auth:oauth2Client});
 
     const emailLines = [
         // 'From: sender@example.com',
-        'To: omgarg3000@gmail.com',
+        `To: ${mailReceiver}`,
         'Content-type: text/html;charset=iso-8859-1',
         'MIME-Version: 1.0',
         'Subject: Test Subject',
         '',
-        `${mailContent}`
+        `${mailBody}`
     ];
 
     const email = emailLines.join('\r\n').trim();
