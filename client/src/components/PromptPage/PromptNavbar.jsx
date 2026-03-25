@@ -25,7 +25,7 @@
 //GENERATED CONTENT 
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router";
-import { removeUser } from "../../controller/userRegistration";
+import { removeUser } from "../../controller/userRegistration.js";
 import styles from "./styles/Sidebar.module.css";
 
 /* ── Inline SVG icons (no external dep) ── */

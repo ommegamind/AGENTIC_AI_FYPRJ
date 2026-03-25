@@ -64,12 +64,12 @@ export const handleRemoveUser=async(req, res)=>{
     const refreshToken=req.cookies.pigonRT;
     const removeResponse =dbRemoveUserHandler(refreshToken);
     if(removeResponse){
-        res.cookie("pigonRT", "lol",{
+        res.cookie("pigonRT", "",{
             httpOnly: true,
             sameSite:"lax",
             path:"/"
         });
-        res.cookie("pigonAT", accessToken,{
+        res.cookie("pigonAT", "",{
             httpOnly:true,
             sameSite:"lax",
             path:"/"
