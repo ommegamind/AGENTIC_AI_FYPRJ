@@ -1,0 +1,207 @@
+/* PromptPage.module.css */
+/* All color tokens are read from the [data-theme] set by the sidebar — no JS needed */
+
+/* ── Page-level tokens (extend the sidebar's palette) ── */
+:root {
+  --pp-bg:           #f5f5f2;
+  --pp-surface:      #ffffff;
+  --pp-surface-2:    #f0f0ed;
+  --pp-border:       #e5e5e3;
+  --pp-text-primary: #1a1a18;
+  --pp-text-muted:   #8a8a86;
+  --pp-accent:       #1a1a18;
+  --pp-accent-fg:    #f5f5f2;
+  --pp-input-bg:     #ffffff;
+  --pp-input-border: #d8d8d5;
+  --pp-input-focus:  #1a1a18;
+  --pp-shadow:       0 1px 3px rgba(0,0,0,0.07), 0 4px 16px rgba(0,0,0,0.04);
+  --pp-shadow-input: 0 0 0 3px rgba(26,26,24,0.08);
+}
+
+[data-theme="dark"] {
+  --pp-bg:           #111110;
+  --pp-surface:      #1a1a1a;
+  --pp-surface-2:    #222221;
+  --pp-border:       #2e2e2c;
+  --pp-text-primary: #f0f0ee;
+  --pp-text-muted:   #66665f;
+  --pp-accent:       #f0f0ee;
+  --pp-accent-fg:    #111110;
+  --pp-input-bg:     #1e1e1d;
+  --pp-input-border: #2e2e2c;
+  --pp-input-focus:  #f0f0ee;
+  --pp-shadow:       0 1px 3px rgba(0,0,0,0.3), 0 4px 16px rgba(0,0,0,0.2);
+  --pp-shadow-input: 0 0 0 3px rgba(240,240,238,0.08);
+}
+
+/* ── Layout shell ── */
+.shell {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;          /* ← add this */
+  background: var(--pp-bg);
+  transition: background 220ms ease;
+  font-family: 'DM Sans', sans-serif;
+}
+
+/* Offset for collapsed sidebar (64px) */
+.main {
+  margin-left: 64px;
+  flex: 1;
+  width: 0;             /* ← add this — forces flex child to shrink properly */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 40px 24px 32px;
+  min-height: 100vh;
+  box-sizing: border-box;
+  transition: margin-left 280ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ── Conversation area (scrollable) ── */
+.conversationArea {
+  flex: 1;
+  width: 100%;
+  max-width: 680px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  overflow-y: auto;
+  padding-bottom: 16px;
+  /* hide scrollbar but keep scroll */
+  scrollbar-width: none;
+}
+.conversationArea::-webkit-scrollbar { display: none; }
+
+/* ── Empty state ── */
+.emptyState {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: var(--pp-text-muted);
+  user-select: none;
+  animation: fadeUp 400ms ease both;
+}
+
+.emptyIcon {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: var(--pp-surface-2);
+  border: 1px solid var(--pp-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--pp-text-muted);
+  margin-bottom: 4px;
+}
+
+.emptyTitle {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--pp-text-primary);
+  letter-spacing: -0.02em;
+}
+
+.emptySubtitle {
+  font-size: 13px;
+  color: var(--pp-text-muted);
+}
+
+/* ── Input dock ── */
+.inputDock {
+  width: 100%;
+  max-width: 680px;
+  background: var(--pp-surface);
+  border: 1px solid var(--pp-border);
+  border-radius: 16px;
+  box-shadow: var(--pp-shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  overflow: hidden;
+  transition: background 220ms, border-color 220ms, box-shadow 220ms;
+  animation: fadeUp 350ms ease both;
+}
+
+.inputDock:focus-within {
+  border-color: var(--pp-input-focus);
+  box-shadow: var(--pp-shadow), var(--pp-shadow-input);
+}
+
+.textarea {
+  width: 100%;
+  min-height: 56px;
+  max-height: 200px;
+  background: transparent;
+  border: none;
+  outline: none;
+  resize: none;
+  padding: 16px 16px 0;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.55;
+  color: var(--pp-text-primary);
+  caret-color: var(--pp-input-focus);
+  box-sizing: border-box;
+  transition: color 220ms;
+  /* hide scrollbar */
+  scrollbar-width: none;
+}
+.textarea::-webkit-scrollbar { display: none; }
+.textarea::placeholder { color: var(--pp-text-muted); }
+
+/* ── Dock toolbar ── */
+.dockBar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 8px 10px;
+  gap: 6px;
+}
+
+.submitBtn {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: none;
+  background: var(--pp-accent);
+  color: var(--pp-accent-fg);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 150ms, opacity 150ms, transform 100ms;
+}
+
+.submitBtn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.submitBtn:not(:disabled):hover {
+  opacity: 0.85;
+}
+
+.submitBtn:not(:disabled):active {
+  transform: scale(0.93);
+}
+
+/* ── Hint text below dock ── */
+.hint {
+  margin-top: 10px;
+  font-size: 11.5px;
+  color: var(--pp-text-muted);
+  letter-spacing: 0.01em;
+}
+
+/* ── Animations ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}

@@ -10,14 +10,12 @@ const oauth2Client = new google.auth.OAuth2(
 );
 
 export const mailGenenrator=async(userGoogleToken, mailBody, mailReceiver)=>{
-    // console.log("mail generation handle: ",userGoogleToken)
     oauth2Client.setCredentials({access_token: userGoogleToken});
     const setGmail = google.gmail({version: 'v1', auth:oauth2Client});
 
     const emailLines = [
-        // 'From: sender@example.com',
         `To: ${mailReceiver}`,
-        'Content-type: text/html;charset=iso-8859-1',
+        'Content-Type: text/plain; charset=UTF-8',
         'MIME-Version: 1.0',
         'Subject: Test Subject',
         '',
@@ -25,6 +23,7 @@ export const mailGenenrator=async(userGoogleToken, mailBody, mailReceiver)=>{
     ];
 
     const email = emailLines.join('\r\n').trim();
+    // const email = emailLines.join().trim();
     const base64Email = Buffer.from(email).toString('base64');
 
     const finallySent =await setGmail.users.messages.send({
@@ -35,5 +34,4 @@ export const mailGenenrator=async(userGoogleToken, mailBody, mailReceiver)=>{
     });
     
     return finallySent.status;
-    // console.log("mail generation :", finallySent);
 }

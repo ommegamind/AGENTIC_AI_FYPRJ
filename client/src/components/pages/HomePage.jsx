@@ -1,24 +1,147 @@
-import styles from "./styles/pages.module.css";
 
-export const HomePage=()=>{
-    return(
-    <div className={styles.pageBody}>
 
-        <h1 className={styles.pageTitle} >Home Page</h1>
-        <hr className={styles.separator} />
+// export const HomePage=()=>{
+//     return(
+//     <div className={styles.pageBody}>
 
-        <div className={styles.paraContents}>
-            <p className={styles.halfPara} >
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. A libero natus ipsam minima deleniti labore nesciunt laborum temporibus? Natus placeat non fugiat, saepe praesentium sunt modi. Eligendi obcaecati voluptatem asperiores? Dolore natus at provident, porro, doloremque ad quam nemo velit rem fuga officiis ipsa obcaecati non, voluptate atque consequatur molestiae sequi. Repellendus reiciendis voluptatem facilis, magni exercitationem natus sed porro? Labore, nesciunt nulla autem ab modi adipisci consectetur accusantium debitis hic iste eligendi veritatis architecto quidem possimus minima! Officia impedit reprehenderit sint itaque dolorem fuga sit modi corrupti, officiis iure quaerat possimus ipsam earum at laudantium ratione et deserunt doloremque. 
-            </p>
+//         <h1 className={styles.pageTitle} >Home Page</h1>
 
-            <p className={styles.halfPara} >
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. A libero natus ipsam minima deleniti labore nesciunt laborum temporibus? Natus placeat non fugiat, saepe praesentium sunt modi. Eligendi obcaecati voluptatem asperiores? Dolore natus at provident, porro, doloremque ad quam nemo velit rem fuga officiis ipsa obcaecati non, voluptate atque consequatur molestiae sequi. Repellendus reiciendis voluptatem facilis, magni exercitationem natus sed porro? Labore, nesciunt nulla autem ab modi adipisci consectetur accusantium debitis hic iste eligendi veritatis architecto quidem possimus minima! Officia impedit reprehenderit sint itaque dolorem fuga sit modi corrupti, officiis iure quaerat possimus ipsam earum at laudantium ratione et deserunt doloremque. 
-            </p>
+//     </div>
+//     )
+// }
+
+// GENERATED CODE 
+import styles from "./styles/Homepage.module.css";
+import { useNavigate } from "react-router";
+
+export const HomePage = () => {
+  const navigate = useNavigate();
+
+  const scrollToSamples = () => {
+    document.getElementById("samples").scrollIntoView({ behavior: "smooth" });
+  };
+
+  return (
+    <div className={styles.page}>
+
+      {/* ── HERO SECTION ── */}
+      <section className={styles.hero}>
+        <h1 className={styles.title}>
+          Send Emails with Just a Prompt
+        </h1>
+
+        <div className={styles.btnContainer}>
+          <button
+            className={styles.primaryBtn}
+            onClick={() => navigate("/prompt-page")}
+          >
+            Login / Get Started →
+          </button>
+
+          <button
+            className={styles.secondaryBtn}
+            onClick={scrollToSamples}
+          >
+            See How It Works →
+          </button>
         </div>
 
-        <p className={styles.fullPara}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus officiis tempora nobis autem illo praesentium distinctio eum nihil enim nemo expedita accusamus nulla eligendi molestias hic exercitationem consequatur ad excepturi, magni, repellendus fuga. Placeat, repudiandae? Deleniti vel enim esse modi, et, repudiandae quod laudantium nesciunt fugiat qui voluptatibus distinctio. Deleniti magnam, distinctio necessitatibus voluptate, hic ut ipsa rerum iste quibusdam iure itaque, molestiae soluta nisi eveniet. Unde ad a reprehenderit reiciendis doloribus eaque dignissimos autem quasi provident veritatis ipsa id delectus, est quas itaque quaerat eveniet numquam maxime non adipisci eligendi. Aliquid illo ullam recusandae ea dignissimos, exercitationem doloremque tempore! Autem quia ratione deleniti reprehenderit sit, delectus harum, asperiores saepe explicabo non facere et quod qui voluptatem placeat nihil ad dignissimos natus quis maxime! Numquam quisquam ea totam aut assumenda. Dignissimos pariatur quidem, eius quo repellat veritatis aliquid necessitatibus possimus tenetur recusandae nisi harum quasi sapiente vel id corrupti inventore illo eos blanditiis quae consequuntur porro ad accusamus minima! Natus officia, quod exercitationem quam quasi eius animi ab recusandae iure aliquid cum asperiores. Quisquam magni dicta accusantium reprehenderit dolores. Possimus harum dolor fuga explicabo, sunt sint totam consequatur ea corporis asperiores similique modi illo veniam itaque! Nisi excepturi provident facilis.</p>
-        
+        <p className={styles.description}>
+          Our Agentic AI understands your intent and automatically generates
+          and sends emails for you. Just type what you want — no formatting,
+          no drafting, no manual sending. The AI handles everything from
+          writing to delivery.
+        </p>
+      </section>
+
+      {/* ── SAMPLE SECTION ── */}
+      <section id="samples" className={styles.samples}>
+        <h2>How it works</h2>
+
+        {/* Example 1 */}
+        <div className={styles.chatExample}>
+          <div className={styles.userBubble}>
+            say hi to mom@gmail.com
+          </div>
+
+          <div className={styles.aiCard}>
+            <div className={styles.cardHeader}>GENERATED MAIL</div>
+            <p>Hi!</p>
+            <div className={styles.sentTag}>✔ Sent</div>
+          </div>
+        </div>
+
+        {/* Example 2 */}
+        <div className={styles.chatExample}>
+          <div className={styles.userBubble}>
+            send a formal apology mail to boss@gmail.com for missing meeting
+          </div>
+
+          <div className={styles.aiCard}>
+            <div className={styles.cardHeader}>GENERATED MAIL</div>
+            <p>
+              Dear Sir,<br /><br />
+              I sincerely apologize for missing the meeting today...
+            </p>
+
+            <div className={styles.mailActions}>
+              <span>To: boss@gmail.com</span>
+              <button>Send</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── METHODS SECTION ── */}
+      <section className={styles.methods}>
+        <h2>How this works</h2>
+
+        <p>
+          Our platform uses advanced AI models to interpret your prompts
+          and convert them into structured email content. Currently, we are
+          using Google's Gemini model to process user prompts and generate
+          high-quality email drafts. These models understand intent, tone,
+          and context, allowing users to write natural language instructions
+          instead of structured commands.
+        </p>
+
+        <p>
+          Once the email content is generated, we integrate with Google’s
+          OAuth system to securely send emails on your behalf. This means
+          you authenticate using your Google account, and our system uses
+          secure access tokens to send emails without ever storing your
+          password. The process ensures both security and seamless automation.
+        </p>
+
+        <p>
+          In the future, we plan to transition from third-party models like
+          Gemini to our own custom-trained AI system, allowing for more
+          control, personalization, and advanced features.
+        </p>
+      </section>
+
+      {/* ── LIMITATIONS SECTION ── */}
+      <section className={styles.limitations}>
+        <h2>Current Limitations</h2>
+
+        <ul>
+          <li>
+            You can currently send emails to only one recipient at a time.
+            Multi-recipient support is under development.
+          </li>
+
+          <li>
+            Long-term login sessions are not yet supported. We are actively
+            improving authentication security and token handling.
+          </li>
+
+          <li>
+            File attachments and document generation are not available yet,
+            but we plan to introduce them soon.
+          </li>
+        </ul>
+      </section>
+
     </div>
-    )
-}
+  );
+};

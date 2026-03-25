@@ -1,0 +1,289 @@
+/* MailThread.module.css */
+
+/* ── Tokens (inherits theme from [data-theme] on <html>) ── */
+:root {
+  --mt-bg:             #f5f5f2;
+  --mt-bubble-bg:      #ffffff;
+  --mt-bubble-border:  #e5e5e3;
+  --mt-bubble-editing: #fffdf5;
+  --mt-bubble-edit-border: #d4a843;
+  --mt-text:           #1a1a18;
+  --mt-text-muted:     #8a8a86;
+  --mt-text-label:     #6a6a66;
+  --mt-send-bg:        #1a1a18;
+  --mt-send-fg:        #f5f5f2;
+  --mt-edit-bg:        #f0f0ed;
+  --mt-edit-fg:        #1a1a18;
+  --mt-edit-active-bg: #d4a843;
+  --mt-edit-active-fg: #ffffff;
+  --mt-shadow:         0 1px 4px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
+  --mt-shadow-focus:   0 0 0 3px rgba(212,168,67,0.2);
+  --mt-prompt-bg:      #f0f0ed;
+  --mt-prompt-border:  #e5e5e3;
+  --mt-sent-badge:     #22c55e;
+  --mt-error-badge:    #ef4444;
+}
+
+[data-theme="dark"] {
+  --mt-bg:             #111110;
+  --mt-bubble-bg:      #1a1a1a;
+  --mt-bubble-border:  #2e2e2c;
+  --mt-bubble-editing: #1f1c13;
+  --mt-bubble-edit-border: #c49a32;
+  --mt-text:           #f0f0ee;
+  --mt-text-muted:     #66665f;
+  --mt-text-label:     #8a8a84;
+  --mt-send-bg:        #f0f0ee;
+  --mt-send-fg:        #111110;
+  --mt-edit-bg:        #262624;
+  --mt-edit-fg:        #f0f0ee;
+  --mt-edit-active-bg: #c49a32;
+  --mt-edit-active-fg: #111110;
+  --mt-shadow:         0 1px 4px rgba(0,0,0,0.3), 0 4px 16px rgba(0,0,0,0.2);
+  --mt-shadow-focus:   0 0 0 3px rgba(196,154,50,0.2);
+  --mt-prompt-bg:      #1e1e1c;
+  --mt-prompt-border:  #2e2e2c;
+  --mt-sent-badge:     #16a34a;
+  --mt-error-badge:    #dc2626;
+}
+
+/* ── Thread list ── */
+.thread {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  padding: 8px 0 4px;
+}
+
+/* ── Single turn (prompt + response) ── */
+.turn {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  animation: slideUp 300ms cubic-bezier(0.4,0,0.2,1) both;
+}
+
+/* ── User prompt bubble (right-aligned) ── */
+.promptRow {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.promptBubble {
+  max-width: 72%;
+  background: var(--mt-prompt-bg);
+  border: 1px solid var(--mt-prompt-border);
+  border-radius: 14px 14px 4px 14px;
+  padding: 10px 14px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--mt-text);
+  word-break: break-word;
+}
+
+/* ── Mail card (left-aligned) ── */
+.mailCard {
+  background: var(--mt-bubble-bg);
+  border: 1px solid var(--mt-bubble-border);
+  border-radius: 4px 14px 14px 14px;
+  box-shadow: var(--mt-shadow);
+  overflow: hidden;
+  transition: border-color 200ms, box-shadow 200ms, background 200ms;
+}
+
+.mailCard.editing {
+  background: var(--mt-bubble-editing);
+  border-color: var(--mt-bubble-edit-border);
+  box-shadow: var(--mt-shadow), var(--mt-shadow-focus);
+}
+
+/* ── Card header ── */
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px 8px;
+  border-bottom: 1px solid var(--mt-bubble-border);
+}
+
+.cardLabel {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--mt-text-label);
+  user-select: none;
+}
+
+.cardLabel.editingLabel {
+  color: var(--mt-edit-active-bg);
+}
+
+.statusBadge {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 2px 8px;
+  border-radius: 20px;
+  user-select: none;
+}
+
+.statusBadge.sent {
+  background: color-mix(in srgb, var(--mt-sent-badge) 15%, transparent);
+  color: var(--mt-sent-badge);
+}
+
+.statusBadge.error {
+  background: color-mix(in srgb, var(--mt-error-badge) 15%, transparent);
+  color: var(--mt-error-badge);
+}
+
+/* ── Mail body (view mode) ── */
+.mailBody {
+  padding: 12px 14px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--mt-text);
+  white-space: pre-wrap;
+  word-break: break-word;
+  min-height: 60px;
+}
+
+/* ── Mail body (edit mode) ── */
+.mailTextarea {
+  display: block;
+  width: 100%;
+  padding: 12px 14px;
+  background: transparent;
+  border: none;
+  outline: none;
+  resize: none;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--mt-text);
+  caret-color: var(--mt-edit-active-bg);
+  box-sizing: border-box;
+  min-height: 80px;
+  scrollbar-width: thin;
+}
+
+/* ── Receiver input row ── */
+.receiverRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 14px 10px;
+  border-top: 1px solid var(--mt-bubble-border);
+  margin-top: 2px;
+  padding-top: 10px;
+}
+
+.receiverLabel {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  color: var(--mt-text-muted);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.receiverInput {
+  flex: 1;
+  background: var(--mt-edit-bg);
+  border: 1px solid var(--mt-bubble-border);
+  border-radius: 8px;
+  padding: 5px 10px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  color: var(--mt-text);
+  outline: none;
+  transition: border-color 150ms;
+}
+
+.receiverInput:focus {
+  border-color: var(--mt-edit-active-bg);
+}
+
+/* ── Action buttons row ── */
+.cardActions {
+  display: flex;
+  gap: 6px;
+  padding: 0 14px 12px;
+  justify-content: flex-end;
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 13px;
+  border-radius: 8px;
+  border: none;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12.5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: opacity 150ms, transform 100ms, background 150ms;
+  user-select: none;
+}
+
+.btn:active { transform: scale(0.95); }
+.btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.btnEdit {
+  background: var(--mt-edit-bg);
+  color: var(--mt-edit-fg);
+}
+.btnEdit:not(:disabled):hover { opacity: 0.75; }
+
+.btnEditActive {
+  background: var(--mt-edit-active-bg);
+  color: var(--mt-edit-active-fg);
+}
+.btnEditActive:not(:disabled):hover { opacity: 0.85; }
+
+.btnSend {
+  background: var(--mt-send-bg);
+  color: var(--mt-send-fg);
+}
+.btnSend:not(:disabled):hover { opacity: 0.8; }
+
+/* ── Loading skeleton ── */
+.skeleton {
+  background: var(--mt-bubble-bg);
+  border: 1px solid var(--mt-bubble-border);
+  border-radius: 4px 14px 14px 14px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  box-shadow: var(--mt-shadow);
+}
+
+.skeletonLine {
+  height: 12px;
+  border-radius: 6px;
+  background: linear-gradient(
+    90deg,
+    var(--mt-bubble-border) 25%,
+    color-mix(in srgb, var(--mt-bubble-border) 50%, transparent) 50%,
+    var(--mt-bubble-border) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+}
+
+/* ── Animations ── */
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shimmer {
+  from { background-position: 200% 0; }
+  to   { background-position: -200% 0; }
+}

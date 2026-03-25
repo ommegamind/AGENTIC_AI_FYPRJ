@@ -2,19 +2,50 @@ import { fetchGoogleToken } from "../model/fetchUserToken.js";
 import { mailContentGenerator } from "./genAiHanlder.js";
 import { mailGenenrator } from "./mailGenerationHandler.js";
 
-export const handleUserAuth=async(req, res)=>{
+export const handleMailContent=async(req, res)=>{
     const userRefreshToken=req.cookies.pigonRT;
     const userGoogleToken= await fetchGoogleToken(userRefreshToken);
-    let mailStatus;
     if (userGoogleToken!=0){
         const promptText=req.body.promptInput;
         const mailContent = await mailContentGenerator(promptText);
 
-        mailStatus= await mailGenenrator(userGoogleToken, mailContent.mailBody, mailContent.receiver);
+        res.json({
+            sendingStatus: 200,
+            mailBody: mailContent.mailBody,
+            mailReceiver: mailContent.receiver
+        });
 
     }else{
         //improvee this shit
-        res.json({"sendingStatus":"404"});
+        res.json({"generationStatus":"404"});
     }
-    res.json({"sendingStatus": mailStatus});
 }
+
+export const handleMailTransfer = async (req, res) => {
+  try {
+    const userRefreshToken = req.cookies.pigonRT;
+    const userGoogleToken = await fetchGoogleToken(userRefreshToken);
+
+    if (!userGoogleToken) {
+      return res.json({ sendingStatus: 401 });
+    }
+
+    const mailContents = req.body.mailSendingBody;
+    const receivers = req.body.mailSendingReceiver;
+
+    const mailStatus = await mailGenenrator(
+      userGoogleToken,
+      mailContents,
+      receivers
+    );
+
+    return res.json({
+      sendingStatus: 200,
+      result: mailStatus
+    });
+
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ sendingStatus: 500 });
+  }
+};
