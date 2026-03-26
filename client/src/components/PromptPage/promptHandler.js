@@ -58,7 +58,7 @@ export const submitPrompt = async (promptText) => {
   if (!promptText?.trim()) return null;
 
   try {
-    const promptResponse = await fetch("http://localhost:3000/prompts", {
+    const promptResponse = await fetch("https://servercerbi.onrender.com/prompts", {
       method: "POST",
       credentials: "include",
       headers: { "Content-Type": "application/json" },
@@ -82,7 +82,7 @@ export const submitPrompt = async (promptText) => {
 
 export const sendMail = async (mailBody, mailReceiver) => {
   try {
-    const promptResponse = await fetch("http://localhost:3000/prompts/mail", {
+    const promptResponse = await fetch("https://servercerbi.onrender.com/prompts/mail", {
       method: "POST",
       credentials: "include",
       headers: { "Content-Type": "application/json" },

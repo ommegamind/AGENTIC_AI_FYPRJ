@@ -1,5 +1,5 @@
 export const addUser=async(newUser)=>{
-    fetch("http://localhost:3000/signin/",{
+    fetch("https://servercerbi.onrender.com/signin/",{
         method:"POST",
         headers:{
             "Content-Type":"application/json"
@@ -10,7 +10,7 @@ export const addUser=async(newUser)=>{
 }
 
 export const removeUser= async()=>{
-    const removeResponse = await fetch("http://localhost:3000/signin/logout/",{
+    const removeResponse = await fetch("https://servercerbi.onrender.com/signin/logout/",{
         credentials: "include"
     });
     console.log(`response check ${removeResponse}`);

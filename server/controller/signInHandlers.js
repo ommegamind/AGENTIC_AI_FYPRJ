@@ -54,7 +54,7 @@ export const authScreenHandler =async(req, res)=>{
         path:"/"
     })
 
-    res.redirect("http://localhost:5173/prompt-page");
+    res.redirect("https://clientcerbi-m414ukgct-ommegaminds-projects.vercel.app/prompt-page");
   }
 
 }

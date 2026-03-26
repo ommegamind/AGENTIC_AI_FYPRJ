@@ -142,7 +142,7 @@ export const PromptNavbar = () => {
         className={styles.iconBtn}
         onClick={async () => { 
           await removeUser();
-          window.location.href="http://localhost:5173/"
+          window.location.href="https://clientcerbi-m414ukgct-ommegaminds-projects.vercel.app"
          }}
         title={!expanded ? "Log out" : undefined}
       >

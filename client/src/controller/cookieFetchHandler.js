@@ -1,6 +1,6 @@
 
 export const cookieFetch=async()=>{
-    const response= await fetch("http://localhost:3000/cookies",{
+    const response= await fetch("https://servercerbi.onrender.com/cookies",{
         method:"GET",
         credentials: "include"
     })
