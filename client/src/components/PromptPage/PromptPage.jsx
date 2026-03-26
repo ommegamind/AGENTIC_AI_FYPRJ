@@ -140,7 +140,7 @@ import { useState, useRef, useEffect } from "react";
 import { submitPrompt } from "./promptHandler.js";
 import { PromptNavbar } from "./PromptNavbar.jsx";
 import { MailThread } from "./Mailthread.jsx";
-import styles from "./styles/PromptPage.module.css";
+import styles from "./styles/Promptpage.module.css";
 
 /* ── Icons ── */
 const ArrowUp = () => (
