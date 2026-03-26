@@ -222,7 +222,7 @@ export const PromptPage = () => {
   };
 
   if (!pageVisibility) {
-    window.location.assign("http://localhost:3000/signin/check");
+    window.location.assign("https://servercerbi.onrender.com/signin/check");
     return null;
   }
 
