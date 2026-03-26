@@ -10,10 +10,12 @@ import { authScreenHandler } from "./controller/signInHandlers.js";
 
 
 const app= express()
-const PORT=3000;
+const PORT = process.env.PORT || 3000;
 
 app.use(cors({
-  origin: "http://localhost:5173",
+  origin: [
+    "http://localhost:5173",
+    "https://clientcerbi-m414ukgct-ommegaminds-projects.vercel.app"],
   credentials: true
 }));
 
