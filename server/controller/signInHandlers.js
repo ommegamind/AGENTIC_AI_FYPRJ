@@ -44,13 +44,15 @@ export const authScreenHandler =async(req, res)=>{
     dbAddUserHandler(tokens.access_token, refreshToken);
 
     res.cookie("pigonAT", accessToken,{
-        httpOnly:true,
-        sameSite:"lax",
+        httpOnly: true,
+        sameSite: "none",
+        secure: true,
         path:"/"
     });
     res.cookie("pigonRT", refreshToken,{
         httpOnly: true,
-        sameSite:"lax",
+        sameSite: "none",
+        secure: true,
         path:"/"
     })
 
@@ -67,12 +69,14 @@ export const handleRemoveUser=async(req, res)=>{
     if(removeResponse){
         res.cookie("pigonRT", "",{
             httpOnly: true,
-            sameSite:"lax",
+            sameSite: "none",
+            secure: true,
             path:"/"
         });
         res.cookie("pigonAT", "",{
-            httpOnly:true,
-            sameSite:"lax",
+            httpOnly: true,
+            sameSite: "none",
+            secure: true,
             path:"/"
         });
     }

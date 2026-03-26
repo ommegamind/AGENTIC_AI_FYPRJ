@@ -13,9 +13,11 @@ const app= express()
 const PORT = process.env.PORT || 3000;
 
 app.use(cors({
-  origin: [
-    "http://localhost:5173",
-    "https://clientcerbi-m414ukgct-ommegaminds-projects.vercel.app"],
+origin: [
+  "http://localhost:5173",
+  "https://clientcerbi.vercel.app",
+  "https://clientcerbi-m414ukgct-ommegaminds-projects.vercel.app"
+  ],
   credentials: true
 }));
 
@@ -24,7 +26,11 @@ app.use(cookieParser());
 app.use(session({
   secret: process.env.SECRET_KEY,
   resave: false,
-  saveUninitialized: false
+  saveUninitialized: false,
+  cookie: {
+    secure: true,        // REQUIRED for HTTPS
+    sameSite: "none"     // REQUIRED for cross-site
+  }
 }));
 
 app.use("/signin", userAuthRouter)

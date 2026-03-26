@@ -47,7 +47,8 @@ export const cookieGetHandle=async(req, res)=>{
     if(newToken){
             res.cookie("pigonAT", useNewToken,{
                 httpOnly:true,
-                sameSite:"lax",
+                sameSite: "none",
+                secure: true,
                 path:"/"
                 });
     }
