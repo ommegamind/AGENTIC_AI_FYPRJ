@@ -62,7 +62,8 @@ export const authScreenHandler =async(req, res)=>{
 
 export const handleRemoveUser=async(req, res)=>{
     const refreshToken=req.cookies.pigonRT;
-    const removeResponse =dbRemoveUserHandler(refreshToken);
+    const removeResponse =await dbRemoveUserHandler(refreshToken);
+    console.log(`remove response: ${removeResponse}`);
     if(removeResponse){
         res.cookie("pigonRT", "",{
             httpOnly: true,
@@ -75,4 +76,6 @@ export const handleRemoveUser=async(req, res)=>{
             path:"/"
         });
     }
+    return res.status(200).json({ logout: true });
+
 }

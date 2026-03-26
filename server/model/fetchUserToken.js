@@ -3,7 +3,7 @@ import pool from "../config/pgModel.js";
 export const fetchUserToken= async(refreshTokenCheck)=>{
     try{
         const userVerification=await pool.query(
-            "SELECT 1 FROM trial WHERE user_refresh_token = $1 ",
+            "SELECT 1 FROM pigeondb WHERE user_refresh_token = $1 ",
             [refreshTokenCheck]
         )
         console.log(userVerification.rowCount>0);

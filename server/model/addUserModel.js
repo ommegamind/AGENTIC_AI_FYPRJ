@@ -17,7 +17,8 @@ export const dbRemoveUserHandler= async(userToken)=>{
             "DELETE FROM pigeondb WHERE user_refresh_token =$1",
             [userToken]
         )
-        // console.log(`db remove query ${removeUser.rowCount}`);
+        console.log(`db remove query ${removeUser.rowCount}`);
+        return removeUser.rowCount;
     }catch(err){
         console.log(err);
     }

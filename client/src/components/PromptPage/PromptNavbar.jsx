@@ -140,7 +140,10 @@ export const PromptNavbar = () => {
       {/* Log out */}
       <button
         className={styles.iconBtn}
-        onClick={async () => { await removeUser(); }}
+        onClick={async () => { 
+          await removeUser();
+          window.location.href="http://localhost:5173/"
+         }}
         title={!expanded ? "Log out" : undefined}
       >
         <Icon.Logout />
