@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
-import { sendMail } from "./promptHandler";
-import styles from "./styles/MailThread.module.css";
+import { sendMail } from "./promptHandler.js";
+import styles from "./styles/Mailthread.module.css";
 
 /* ── Icons ── */
 const EditIcon = () => (
