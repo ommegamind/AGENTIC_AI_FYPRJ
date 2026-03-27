@@ -40,9 +40,9 @@ export const userGooglAuth = (req, res) => {
         secure: true,
         sameSite: "none",
         path: "/",
-        domain: ".onrender.com",
         maxAge: 5 * 60 * 1000
     });
+
 
     const authorizationUrl = oauth2Client.generateAuthUrl({
         access_type: 'online',
@@ -108,8 +108,7 @@ export const authScreenHandler = async (req, res) => {
     res.clearCookie("oauth_state", {
         path: "/",
         sameSite: "none",
-        secure: true,
-        domain: ".onrender.com"
+        secure: true
     });
 
     const { tokens } = await oauth2Client.getToken(code);
@@ -122,16 +121,14 @@ export const authScreenHandler = async (req, res) => {
         httpOnly: true,
         sameSite: "none",
         secure: true,
-        path: "/",
-        domain: ".onrender.com"
+        path: "/"
     });
 
     res.cookie("pigonRT", refreshToken, {
         httpOnly: true,
         sameSite: "none",
         secure: true,
-        path: "/",
-        domain: ".onrender.com"
+        path: "/"
     });
 
     // res.redirect("https://clientcerbi.vercel.app/prompt-page");
@@ -166,15 +163,13 @@ export const handleRemoveUser=async(req, res)=>{
             httpOnly: true,
             sameSite: "none",
             secure: true,
-            path: "/",
-            domain: ".onrender.com"
+            path: "/"
         });
         res.cookie("pigonAT", "", {
             httpOnly: true,
             sameSite: "none",
             secure: true,
-            path: "/",
-            domain: ".onrender.com"
+            path: "/"
         });
     }
     return res.status(200).json({ logout: true });
