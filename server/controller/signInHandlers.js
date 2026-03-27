@@ -87,6 +87,9 @@ export const userGooglAuth = (req, res) => {
 
 // deployment auth screen handler 
 export const authScreenHandler = async (req, res) => {
+    console.log("🔥 FULL URL:", req.protocol + '://' + req.get('host') + req.originalUrl);
+    console.log("🔥 ALL QUERY:", JSON.stringify(req.query));
+    console.log("🔥 RAW URL:", req.url);
     const { state, code, error } = req.query;
 
     console.log("🔥 authScreen HIT");
