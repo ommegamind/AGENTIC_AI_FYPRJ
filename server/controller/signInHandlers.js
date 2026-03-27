@@ -116,21 +116,29 @@ export const authScreenHandler = async (req, res) => {
 
     dbAddUserHandler(tokens.access_token, refreshToken);
 
-    res.cookie("pigonAT", accessToken, {
+    res.cookie("pigonRT", accessToken, {
         httpOnly: true,
         sameSite: "none",
         secure: true,
-        path: "/"
+        path: "/",
+        domain: ".onrender.com"
     });
 
     res.cookie("pigonRT", refreshToken, {
         httpOnly: true,
         sameSite: "none",
         secure: true,
-        path: "/"
+        path: "/",
+        domain: ".onrender.com"
     });
 
-    res.redirect("https://clientcerbi.vercel.app/prompt-page");
+    // res.redirect("https://clientcerbi.vercel.app/prompt-page");
+    //deployment fix 
+    res.send(`
+        <script>
+            window.location.href = "https://clientcerbi.vercel.app/prompt-page";
+        </script>
+    `);
 };
 
 
@@ -140,17 +148,31 @@ export const handleRemoveUser=async(req, res)=>{
     const removeResponse =await dbRemoveUserHandler(refreshToken);
     console.log(`remove response: ${removeResponse}`);
     if(removeResponse){
-        res.cookie("pigonRT", "",{
+        // res.cookie("pigonRT", "",{
+        //     httpOnly: true,
+        //     sameSite: "none",
+        //     secure: true,
+        //     path:"/"
+        // });
+        // res.cookie("pigonAT", "",{
+        //     httpOnly: true,
+        //     sameSite: "none",
+        //     secure: true,
+        //     path:"/"
+        // });
+        res.cookie("pigonRT", "", {
             httpOnly: true,
             sameSite: "none",
             secure: true,
-            path:"/"
+            path: "/",
+            domain: ".onrender.com"
         });
-        res.cookie("pigonAT", "",{
+        res.cookie("pigonRT", "", {
             httpOnly: true,
             sameSite: "none",
             secure: true,
-            path:"/"
+            path: "/",
+            domain: ".onrender.com"
         });
     }
     return res.status(200).json({ logout: true });
