@@ -43,9 +43,8 @@ export const userGooglAuth = (req, res) => {
         maxAge: 5 * 60 * 1000
     });
 
-
     const authorizationUrl = oauth2Client.generateAuthUrl({
-        access_type: 'online',
+        access_type: 'online', // ✅ as you want
         scope: scopes,
         include_granted_scopes: true,
         state: state
@@ -53,6 +52,7 @@ export const userGooglAuth = (req, res) => {
 
     res.redirect(authorizationUrl);
 };
+
 
 
 // export const authScreenHandler =async(req, res)=>{
@@ -93,29 +93,57 @@ export const userGooglAuth = (req, res) => {
 export const authScreenHandler = async (req, res) => {
     const { state, code, error } = req.query;
 
+    console.log("🔥 authScreen HIT");
+
     const storedState = req.cookies.oauth_state;
 
+    console.log("Query state:", state);
+    console.log("Cookie state:", storedState);
+
     if (error) {
+        console.log("OAuth error:", error);
         return res.end(`we encountered: ${error}`);
     }
 
+    if (!code) {
+        console.log("❌ No code received");
+        return res.end("No code received");
+    }
+
     if (!state || state !== storedState) {
-        console.log('State mismatch. Possible CSRF attack');
+        console.log('❌ State mismatch');
         return res.end('State mismatch. Possible CSRF attack');
     }
 
-    // ✅ clear after verification
-    res.clearCookie("oauth_state", {
-        path: "/",
-        sameSite: "none",
-        secure: true
-    });
+    // clear state cookie
+    res.clearCookie("oauth_state");
 
-    const { tokens } = await oauth2Client.getToken(code);
+    // 🔥 SAFE TOKEN FETCH
+    let tokens;
+    try {
+        const response = await oauth2Client.getToken(code);
+        tokens = response.tokens;
+        console.log("✅ Tokens:", tokens);
+    } catch (err) {
+        console.error("❌ Token exchange failed:", err);
+        return res.end("OAuth failed");
+    }
 
+    if (!tokens?.access_token) {
+        console.log("❌ No access token received");
+        return res.end("No access token");
+    }
+
+    // 🔥 store Google access token (your choice)
+    try {
+        await dbAddUserHandler(tokens.access_token);
+        console.log("✅ DB updated");
+    } catch (err) {
+        console.error("❌ DB error:", err);
+    }
+
+    // 🔥 your JWT tokens
     const { accessToken, refreshToken } = tokenHandler(tokens.access_token);
-
-    dbAddUserHandler(tokens.access_token, refreshToken);
 
     res.cookie("pigonAT", accessToken, {
         httpOnly: true,
@@ -131,40 +159,33 @@ export const authScreenHandler = async (req, res) => {
         path: "/"
     });
 
-    // res.redirect("https://clientcerbi.vercel.app/prompt-page");
-    //deployment fix 
+    console.log("✅ Cookies set");
+
+    // 🔥 SAFE REDIRECT
     res.send(`
-    <script>
-        window.location.replace("https://clientcerbi.vercel.app/prompt-page");
-    </script>
+        <script>
+            window.location.replace("https://clientcerbi.vercel.app/prompt-page");
+        </script>
     `);
 };
 
 
 
-export const handleRemoveUser=async(req, res)=>{
-    const refreshToken=req.cookies.pigonRT;
-    const removeResponse =await dbRemoveUserHandler(refreshToken);
+
+export const handleRemoveUser = async (req, res) => {
+    const refreshToken = req.cookies.pigonRT;
+
+    const removeResponse = await dbRemoveUserHandler(refreshToken);
     console.log(`remove response: ${removeResponse}`);
-    if(removeResponse){
-        // res.cookie("pigonRT", "",{
-        //     httpOnly: true,
-        //     sameSite: "none",
-        //     secure: true,
-        //     path:"/"
-        // });
-        // res.cookie("pigonAT", "",{
-        //     httpOnly: true,
-        //     sameSite: "none",
-        //     secure: true,
-        //     path:"/"
-        // });
+
+    if (removeResponse) {
         res.cookie("pigonRT", "", {
             httpOnly: true,
             sameSite: "none",
             secure: true,
             path: "/"
         });
+
         res.cookie("pigonAT", "", {
             httpOnly: true,
             sameSite: "none",
@@ -172,6 +193,6 @@ export const handleRemoveUser=async(req, res)=>{
             path: "/"
         });
     }
-    return res.status(200).json({ logout: true });
 
-}
+    return res.status(200).json({ logout: true });
+};
