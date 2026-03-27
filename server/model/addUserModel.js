@@ -1,13 +1,14 @@
 import pool from "../config/pgModel.js";
 
-export const dbAddUserHandler= async(userData, refreshToken)=>{
-    try{
+export const dbAddUserHandler = async (userData, refreshToken) => {
+    try {
         await pool.query(
             "INSERT INTO pigeondb (user_refresh_token, user_google_token) VALUES ($1, $2)",
             [refreshToken, userData]
-        )
-    }catch(err){
-        console.log(err);
+        );
+        console.log("✅ User inserted into DB");
+    } catch (err) {
+        console.log("❌ DB insert error:", err);
     }
 }
 

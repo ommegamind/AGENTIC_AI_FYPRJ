@@ -115,10 +115,8 @@ export const authScreenHandler = async (req, res) => {
         return res.end('State mismatch. Possible CSRF attack');
     }
 
-    // clear state cookie
     res.clearCookie("oauth_state");
 
-    // 🔥 SAFE TOKEN FETCH
     let tokens;
     try {
         const response = await oauth2Client.getToken(code);
@@ -134,16 +132,16 @@ export const authScreenHandler = async (req, res) => {
         return res.end("No access token");
     }
 
-    // 🔥 store Google access token (your choice)
+    // ✅ Generate JWTs FIRST so refreshToken is available for DB
+    const { accessToken, refreshToken } = tokenHandler(tokens.access_token);
+
+    // ✅ Now pass BOTH args to DB
     try {
-        await dbAddUserHandler(tokens.access_token);
+        await dbAddUserHandler(tokens.access_token, refreshToken);
         console.log("✅ DB updated");
     } catch (err) {
         console.error("❌ DB error:", err);
     }
-
-    // 🔥 your JWT tokens
-    const { accessToken, refreshToken } = tokenHandler(tokens.access_token);
 
     res.cookie("pigonAT", accessToken, {
         httpOnly: true,
@@ -161,16 +159,12 @@ export const authScreenHandler = async (req, res) => {
 
     console.log("✅ Cookies set");
 
-    // 🔥 SAFE REDIRECT
     res.send(`
         <script>
             window.location.replace("https://clientcerbi.vercel.app/prompt-page");
         </script>
     `);
 };
-
-
-
 
 export const handleRemoveUser = async (req, res) => {
     const refreshToken = req.cookies.pigonRT;
