@@ -61,24 +61,39 @@ export const submitPrompt = async (promptText) => {
     const promptResponse = await fetch("https://servercerbi.onrender.com/prompts", {
       method: "POST",
       credentials: "include",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ promptInput: promptText }),
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        promptInput: promptText
+      })
     });
 
-    const response = await promptResponse.json();
-
-    if (response.sendingStatus === 200) {
-      // Return the generated mail body so PromptPage can store it
-      return response;
-    } else {
-      console.error("Server error from /prompts:", response);
+    if (!promptResponse.ok) {
+      console.error("HTTP error:", promptResponse.status);
       return null;
     }
+
+    const response = await promptResponse.json();
+    console.log("Prompt response:", response);
+
+    if (response.sendingStatus === 200) {
+      return response;
+    }
+
+    if (response.generationStatus) {
+      console.error("Generation failed:", response);
+      return null;
+    }
+
+    return null;
+
   } catch (err) {
     console.error(`submitPrompt error: ${err}`);
     return null;
   }
 };
+
 
 export const sendMail = async (mailBody, mailReceiver) => {
   try {
