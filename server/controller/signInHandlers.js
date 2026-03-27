@@ -34,15 +34,16 @@ export const userGooglAuth = (req, res) => {
     const scopes = ["https://www.googleapis.com/auth/gmail.send"];
 
     const state = crypto.randomBytes(32).toString('hex');
-    
-    // Sign the state into a JWT instead of a cookie
     const signedState = jwt.sign({ state }, process.env.JWT_PRIVATE, { expiresIn: "5m" });
+    
+    // ✅ base64url encode to survive URL transport
+    const encodedState = Buffer.from(signedState).toString('base64url');
 
     const authorizationUrl = oauth2Client.generateAuthUrl({
         access_type: 'online',
         scope: scopes,
         include_granted_scopes: true,
-        state: signedState  // send the signed JWT as state
+        state: encodedState
     });
 
     res.redirect(authorizationUrl);
@@ -112,8 +113,9 @@ export const authScreenHandler = async (req, res) => {
 
     // Verify the signed state JWT instead of comparing cookies
     try {
-        jwt.verify(state, process.env.JWT_PRIVATE);
-        console.log("✅ State verified");
+    const decodedState = Buffer.from(state, 'base64url').toString('utf8');
+    jwt.verify(decodedState, process.env.JWT_PRIVATE);
+    console.log("✅ State verified");
     } catch (err) {
         console.log("❌ State invalid/expired:", err.message);
         return res.end("State mismatch. Possible CSRF attack");
