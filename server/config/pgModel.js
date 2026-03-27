@@ -16,11 +16,21 @@ import dotenv from "dotenv"
 
 dotenv.config({path: "../.env"});
 
+// const pool = new Pool({
+//   connectionString: process.env.DATABASE_URL,
+//   ssl: {
+//     rejectUnauthorized: false,
+//   },
+// });
+
+//generated 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: {
     rejectUnauthorized: false,
   },
+  connectionTimeoutMillis: 10000, // ✅ add this
+  idleTimeoutMillis: 30000,       // ✅ add this
 });
 
 export default pool;
