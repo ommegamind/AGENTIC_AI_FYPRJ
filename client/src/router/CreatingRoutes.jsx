@@ -39,7 +39,7 @@ let router=createBrowserRouter([
                 // }
             ]
         },{
-            path:"prompt-page",
+            path:"/prompt-page",
             Component:PromptPage,
             loader:()=>{
                 const access =cookieFetch();
