@@ -41,10 +41,16 @@ let router=createBrowserRouter([
         },{
             path:"/prompt-page",
             Component:PromptPage,
-            loader:()=>{
-                const access =cookieFetch();
-                return access;
+            loader: async () => {
+                try {
+                    const access = await cookieFetch();
+                    return access;
+                } catch (err) {
+                    console.error("Loader failed:", err);
+                    return false;
+                }
             }
+
         }
     ])
 
