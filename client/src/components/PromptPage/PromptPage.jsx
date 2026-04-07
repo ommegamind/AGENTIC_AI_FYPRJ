@@ -205,7 +205,7 @@ export const PromptPage = () => {
           prompt:   trimmed,
           mailBody: response?.mailBody ?? "Could not generate mail. Please try again.",
           receiver: response?.mailReceiver ?? "",
-          subject: response?.subject ?? ""
+          subject: response?.mailSubject ?? ""
         },
       ]);
     } catch (err) {
