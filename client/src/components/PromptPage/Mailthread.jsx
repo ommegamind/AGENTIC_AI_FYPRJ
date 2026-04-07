@@ -39,7 +39,7 @@ const MailCard = ({ turn, onBodyChange }) => {
   const [editing, setEditing]     = useState(false);
   const [body, setBody]           = useState(turn.mailBody);
   const [receiver, setReceiver]   = useState(turn.receiver ?? "");
-  const [subject, setSubject]     = useState(turn?.subject ?? "")
+  const [subject, setSubject]     = useState(turn.subject ?? "")
   const [sending, setSending]     = useState(false);
   const [status, setStatus]       = useState(null); // null | "sent" | "error"
   const textareaRef               = useRef(null);
