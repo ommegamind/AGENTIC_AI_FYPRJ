@@ -75,7 +75,7 @@ export const submitPrompt = async (promptText) => {
     }
 
     const response = await promptResponse.json();
-    console.log("Prompt response:", response);
+    // console.log("Prompt response:", response);
 
     if (response.sendingStatus === 200) {
       return response;
@@ -95,7 +95,7 @@ export const submitPrompt = async (promptText) => {
 };
 
 
-export const sendMail = async (mailBody, mailReceiver) => {
+export const sendMail = async (mailBody, mailReceiver, mailSubject) => {
   try {
     const promptResponse = await fetch("https://servercerbi.onrender.com/prompts/mail", {
       method: "POST",
@@ -104,6 +104,7 @@ export const sendMail = async (mailBody, mailReceiver) => {
       body: JSON.stringify({
         mailSendingBody: mailBody,
         mailSendingReceiver: mailReceiver,
+        mailSendingSubject: mailSubject
       }),
     });
 

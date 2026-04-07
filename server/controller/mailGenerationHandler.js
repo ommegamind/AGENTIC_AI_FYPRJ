@@ -9,7 +9,7 @@ const oauth2Client = new google.auth.OAuth2(
   process.env.REDIRECT_URL
 );
 
-export const mailGenenrator=async(userGoogleToken, mailBody, mailReceiver)=>{
+export const mailGenenrator=async(userGoogleToken, mailBody, mailReceiver, mailSubject)=>{
     oauth2Client.setCredentials({access_token: userGoogleToken});
     const setGmail = google.gmail({version: 'v1', auth:oauth2Client});
 
@@ -17,7 +17,7 @@ export const mailGenenrator=async(userGoogleToken, mailBody, mailReceiver)=>{
         `To: ${mailReceiver}`,
         'Content-Type: text/plain; charset=UTF-8',
         'MIME-Version: 1.0',
-        'Subject: Test Subject',
+        `Subject:${mailSubject}`,
         '',
         `${mailBody}`
     ];

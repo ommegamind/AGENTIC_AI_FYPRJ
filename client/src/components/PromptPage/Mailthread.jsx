@@ -39,6 +39,7 @@ const MailCard = ({ turn, onBodyChange }) => {
   const [editing, setEditing]     = useState(false);
   const [body, setBody]           = useState(turn.mailBody);
   const [receiver, setReceiver]   = useState(turn.receiver ?? "");
+  const [subject, setSubject]     = useState(turn?.subject ?? "")
   const [sending, setSending]     = useState(false);
   const [status, setStatus]       = useState(null); // null | "sent" | "error"
   const textareaRef               = useRef(null);
@@ -50,10 +51,10 @@ const MailCard = ({ turn, onBodyChange }) => {
     el.style.height = "auto";
     el.style.height = `${el.scrollHeight}px`;
     el.focus();
-  }, [editing, body]);
+  }, [editing, body]);//subject
 
   const handleSave = () => {
-    onBodyChange(turn.id, body);
+    onBodyChange(turn.id, body);//subject
     setEditing(false);
   };
 
@@ -64,14 +65,14 @@ const MailCard = ({ turn, onBodyChange }) => {
     }
     setSending(true);
     try {
-      await sendMail(body, receiver.trim());
+      await sendMail(body, receiver.trim(), subject.trim());
       setStatus("sent");
     } catch {
       setStatus("error");
     } finally {
       setSending(false);
     }
-  };
+  };//First checks if the receiver field is non‑empty. If empty, focuses the textarea (or the receiver input? Actually textareaRef is attached to the email body textarea – this is a bug; it should focus the receiver input. But the code as written will focus the body textarea if receiver is empty. Might be a small oversight.)
 
   return (
     <div className={`${styles.mailCard} ${editing ? styles.editing : ""}`}>
@@ -96,8 +97,9 @@ const MailCard = ({ turn, onBodyChange }) => {
         <div className={styles.mailBody}>{body}</div>
       )}
 
-      {/* Receiver row — shown while editing or before sent */}
+      {/* Receiver and Subject row — shown while editing or before sent */}
       {status !== "sent" && (
+        <>
         <div className={styles.receiverRow}>
           <span className={styles.receiverLabel}>To:</span>
           <input
@@ -108,6 +110,17 @@ const MailCard = ({ turn, onBodyChange }) => {
             onChange={(e) => setReceiver(e.target.value)}
           />
         </div>
+        <div className={styles.receiverRow}>
+          <span className={styles.receiverLabel}>Subject:</span>
+          <input
+            className={styles.receiverInput}
+            type="text"
+            placeholder="enter required subject here"
+            value={subject}
+            onChange={(e) => setSubject(e.target.value)}
+          />
+        </div>
+        </>
       )}
 
       {/* Actions */}

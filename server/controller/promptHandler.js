@@ -12,7 +12,8 @@ export const handleMailContent=async(req, res)=>{
         res.json({
             sendingStatus: 200,
             mailBody: mailContent.mailBody,
-            mailReceiver: mailContent.receiver
+            mailReceiver: mailContent.receiver,
+            mailSubject: mailContent.subject
         });
 
     }else{
@@ -32,11 +33,13 @@ export const handleMailTransfer = async (req, res) => {
 
     const mailContents = req.body.mailSendingBody;
     const receivers = req.body.mailSendingReceiver;
+    const subject = req.body.mailSendingSubject;
 
     const mailStatus = await mailGenenrator(
       userGoogleToken,
       mailContents,
-      receivers
+      receivers,
+      subject
     );
 
     return res.json({

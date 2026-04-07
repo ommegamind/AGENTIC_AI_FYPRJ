@@ -157,7 +157,7 @@ const SparkleIcon = () => (
     <path d="M12 3v2M12 19v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M3 12h2M19 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
     <circle cx="12" cy="12" r="4" />
   </svg>
-);
+); // This shit is not working properly
 
 export const PromptPage = () => {
   const pageVisibility = useLoaderData();
@@ -205,6 +205,7 @@ export const PromptPage = () => {
           prompt:   trimmed,
           mailBody: response?.mailBody ?? "Could not generate mail. Please try again.",
           receiver: response?.mailReceiver ?? "",
+          subject: response?.subject ?? ""
         },
       ]);
     } catch (err) {
@@ -224,7 +225,7 @@ export const PromptPage = () => {
   if (!pageVisibility) {
     window.location.assign("https://servercerbi.onrender.com/signin/check");
     return null;
-  }
+  }; // this can be above in the code
 
   const hasContent = turns.length > 0 || loading;
 
