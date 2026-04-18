@@ -130,7 +130,7 @@ const MailCard = ({ turn, onBodyChange }) => {
             type="text"
             placeholder="enter required cc here"
             value={cc}
-            onChange={(e) => setSubject(e.target.value)}
+            onChange={(e) => setcc(e.target.value)}
           />
         </div>
         {/* ------cc/bcc------ */}
@@ -141,7 +141,7 @@ const MailCard = ({ turn, onBodyChange }) => {
             type="text"
             placeholder="enter required bcc here"
             value={bcc}
-            onChange={(e) => setSubject(e.target.value)}
+            onChange={(e) => setbcc(e.target.value)}
           />
         </div>
         {/* the above needs proper editing  */}
