@@ -38,8 +38,10 @@ const DoneIcon = () => (
 const MailCard = ({ turn, onBodyChange }) => {
   const [editing, setEditing]     = useState(false);
   const [body, setBody]           = useState(turn.mailBody);
-  const [receiver, setReceiver]   = useState(turn.receiver ?? "");
+  const [receiver, setReceiver]   = useState(turn.receiver ?? "")
   const [subject, setSubject]     = useState(turn.subject ?? "")
+  const [cc, setcc]               = useState(turn.cc??"");//check here
+  const [bcc, setbcc]             = useState(turn.bcc??"");// and here
   const [sending, setSending]     = useState(false);
   const [status, setStatus]       = useState(null); // null | "sent" | "error"
   const textareaRef               = useRef(null);
@@ -51,7 +53,7 @@ const MailCard = ({ turn, onBodyChange }) => {
     el.style.height = "auto";
     el.style.height = `${el.scrollHeight}px`;
     el.focus();
-  }, [editing, body]);//subject
+  }, [editing, body, subject]);
 
   const handleSave = () => {
     onBodyChange(turn.id, body);//subject
@@ -65,7 +67,7 @@ const MailCard = ({ turn, onBodyChange }) => {
     }
     setSending(true);
     try {
-      await sendMail(body, receiver.trim(), subject.trim());
+      await sendMail(body, receiver.trim(), subject.trim(), cc, bcc);//added cc, bcc
       setStatus("sent");
     } catch {
       setStatus("error");
@@ -119,7 +121,30 @@ const MailCard = ({ turn, onBodyChange }) => {
             value={subject}
             onChange={(e) => setSubject(e.target.value)}
           />
+        </div> 
+        {/* the below needs proper editing  */}
+        <div className={styles.receiverRow}>
+          <span className={styles.receiverLabel}>cc:</span>
+          <input
+            className={styles.receiverInput}
+            type="text"
+            placeholder="enter required cc here"
+            value={cc}
+            onChange={(e) => setSubject(e.target.value)}
+          />
         </div>
+        {/* ------cc/bcc------ */}
+        <div className={styles.receiverRow}>
+          <span className={styles.receiverLabel}>bcc:</span>
+          <input
+            className={styles.receiverInput}
+            type="text"
+            placeholder="enter required bcc here"
+            value={bcc}
+            onChange={(e) => setSubject(e.target.value)}
+          />
+        </div>
+        {/* the above needs proper editing  */}
         </>
       )}
 

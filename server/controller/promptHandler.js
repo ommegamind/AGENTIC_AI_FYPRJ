@@ -13,7 +13,9 @@ export const handleMailContent=async(req, res)=>{
             sendingStatus: 200,
             mailBody: mailContent.mailBody,
             mailReceiver: mailContent.receiver,
-            mailSubject: mailContent.subject
+            mailSubject: mailContent.subject,
+            mailcc: mailContent.cc,//work on thisss
+            mailbcc: mailContent.bcc//work on thisss
         });
 
     }else{
@@ -34,12 +36,16 @@ export const handleMailTransfer = async (req, res) => {
     const mailContents = req.body.mailSendingBody;
     const receivers = req.body.mailSendingReceiver;
     const subject = req.body.mailSendingSubject;
+    const mailCc = req.body.mailSendingCc;//check this
+    const mailBcc = req.body.mailSendingBcc;//check this
 
     const mailStatus = await mailGenenrator(
       userGoogleToken,
       mailContents,
       receivers,
-      subject
+      subject,
+      mailCc,//check this
+      mailBcc//chech this
     );
 
     return res.json({

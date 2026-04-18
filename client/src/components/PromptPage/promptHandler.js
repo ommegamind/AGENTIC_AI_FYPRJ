@@ -95,7 +95,7 @@ export const submitPrompt = async (promptText) => {
 };
 
 
-export const sendMail = async (mailBody, mailReceiver, mailSubject) => {
+export const sendMail = async (mailBody, mailReceiver, mailSubject, mailcc, mailbcc) => {
   try {
     const promptResponse = await fetch("https://servercerbi.onrender.com/prompts/mail", {
       method: "POST",
@@ -104,9 +104,11 @@ export const sendMail = async (mailBody, mailReceiver, mailSubject) => {
       body: JSON.stringify({
         mailSendingBody: mailBody,
         mailSendingReceiver: mailReceiver,
-        mailSendingSubject: mailSubject
+        mailSendingSubject: mailSubject,
+        mailSendingCc: mailcc,
+        mailSendingBcc: mailbcc
       }),
-    });
+    });//step 2
 
     const response = await promptResponse.json();
 
