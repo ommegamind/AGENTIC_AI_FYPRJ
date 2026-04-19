@@ -258,7 +258,7 @@ export const PromptPage = () => {
             />
           ) : (
             <div className={styles.emptyState}>
-              <div className={styles.emptyIcon}><SparkleIcon /></div>
+              {/* <div className={styles.emptyIcon}><SparkleIcon /></div> */}
               <span className={styles.emptyTitle}>What's on your mind?</span>
               <span className={styles.emptySubtitle}>
                 Describe the mail you need and we'll draft it.
