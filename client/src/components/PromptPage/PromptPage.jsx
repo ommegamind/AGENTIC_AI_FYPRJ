@@ -144,13 +144,24 @@ import { MailThread } from "./Mailthread.jsx";
 import styles from "./styles/Promptpage.module.css";
 
 /* ── Icons ── */
-const ArrowUp = () => {
-  return (
-    <svg fill="#000000" width="800px" height="800px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-      <path d="M15.379,19.1403 L12.108,12.5993 L19.467,5.2413 L15.379,19.1403 Z M4.86,8.6213 L18.76,4.5343 L11.401,11.8923 L4.86,8.6213 Z M3.359,8.0213 C2.923,8.1493 2.87,8.7443 3.276,8.9483 L11.128,12.8733 L15.053,20.7243 C15.256,21.1303 15.852,21.0773 15.98,20.6413 L20.98,3.6413 C21.091,3.2623 20.739,2.9093 20.359,3.0213 L3.359,8.0213 Z"/>
-    </svg>
-  );
-};
+const SendIcon = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path
+      d="M22 2L11 13"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M22 2L15 22L11 13L2 9L22 2Z"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
 
 // const SparkleIcon = () => (
 //   <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
@@ -247,7 +258,7 @@ export const PromptPage = () => {
             />
           ) : (
             <div className={styles.emptyState}>
-              {/* <div className={styles.emptyIcon}><SparkleIcon /></div> */}
+              <p>check</p>{/* check  */}
               <span className={styles.emptyTitle}>What's on your mind?</span>
               <span className={styles.emptySubtitle}>
                 Describe the mail you need and we'll draft it.
@@ -275,7 +286,7 @@ export const PromptPage = () => {
               disabled={!userPrompt.trim() || loading}
               aria-label="Submit"
             >
-              <ArrowUp />
+              <SendIcon />
             </button>
           </div>
         </div>
