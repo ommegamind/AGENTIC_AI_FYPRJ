@@ -1,7 +1,5 @@
 /* PromptPage.module.css */
-/* All color tokens are read from the [data-theme] set by the sidebar — no JS needed */
 
-/* ── Page-level tokens (extend the sidebar's palette) ── */
 :root {
   --pp-bg:           #f5f5f2;
   --pp-surface:      #ffffff;
@@ -38,17 +36,16 @@
 .shell {
   display: flex;
   min-height: 100vh;
-  width: 100%;          /* ← add this */
+  width: 100%;
   background: var(--pp-bg);
   transition: background 220ms ease;
   font-family: 'DM Sans', sans-serif;
 }
 
-/* Offset for collapsed sidebar (64px) */
 .main {
   margin-left: 64px;
   flex: 1;
-  width: 0;             /* ← add this — forces flex child to shrink properly */
+  width: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -69,7 +66,6 @@
   gap: 0;
   overflow-y: auto;
   padding-bottom: 16px;
-  /* hide scrollbar but keep scroll */
   scrollbar-width: none;
 }
 .conversationArea::-webkit-scrollbar { display: none; }
@@ -150,7 +146,6 @@
   caret-color: var(--pp-input-focus);
   box-sizing: border-box;
   transition: color 220ms;
-  /* hide scrollbar */
   scrollbar-width: none;
 }
 .textarea::-webkit-scrollbar { display: none; }
@@ -179,9 +174,12 @@
   transition: background 150ms, opacity 150ms, transform 100ms;
 }
 
+/* ── KEY FIX: disabled state shows a muted bg so the icon is visible ── */
 .submitBtn:disabled {
-  opacity: 0.3;
+  background: var(--pp-surface-2);
+  color: var(--pp-text-muted);
   cursor: not-allowed;
+  opacity: 1;
 }
 
 .submitBtn:not(:disabled):hover {
