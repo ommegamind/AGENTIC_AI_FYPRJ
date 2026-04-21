@@ -143,41 +143,32 @@ import { PromptNavbar } from "./PromptNavbar.jsx";
 import { MailThread } from "./Mailthread.jsx";
 import styles from "./styles/Promptpage.module.css";
 
-/* ── Icons ── */
 const SendIcon = () => (
-  <svg 
-    width="18" 
-    height="18" 
-    viewBox="0 0 24 24" 
-    fill="none" 
+  <svg
+    width="16"
+    height="16"
+    viewBox="0 0 24 24"
+    fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <path 
-      d="M3 21L11 13M11 13H5M11 13V19" 
-      stroke="currentColor" 
-      strokeWidth="1.5" 
-      strokeLinecap="round" 
-      strokeLinejoin="round"
-    />
-    <path 
-      d="M12 22C17.5228 22 22 17.5228 22 12C22 10.1786 21.513 8.47087 20.6622 7M2 12C2 6.47715 6.47715 2 12 2C13.8214 2 15.5291 2.48697 17 3.33782" 
-      stroke="currentColor" 
-      strokeWidth="1.5" 
+    <polyline
+      points="9 18 15 12 9 6"
+      stroke="currentColor"
+      strokeWidth="2.5"
       strokeLinecap="round"
+      strokeLinejoin="round"
     />
   </svg>
 );
-
 
 export const PromptPage = () => {
   const pageVisibility = useLoaderData();
 
   const [userPrompt, setUserPrompt]   = useState("");
-  const [turns, setTurns]             = useState([]);   // in-memory history
+  const [turns, setTurns]             = useState([]);
   const [loading, setLoading]         = useState(false);
   const textareaRef                   = useRef(null);
 
-  // Auto-resize textarea
   useEffect(() => {
     const el = textareaRef.current;
     if (!el) return;
@@ -200,7 +191,6 @@ export const PromptPage = () => {
     setLoading(true);
 
     try {
-      // Build context: pass all previous mail bodies so the model has memory
       const history = turns.map((t) => t.mailBody).join("\n\n---\n\n");
       const contextualPrompt = history
         ? `Previous generated mails for context:\n${history}\n\nNew request: ${trimmed}`
@@ -215,9 +205,9 @@ export const PromptPage = () => {
           prompt:   trimmed,
           mailBody: response?.mailBody ?? "Could not generate mail. Please try again.",
           receiver: response?.mailReceiver ?? "",
-          subject: response?.mailSubject ?? "",
-          cc: response?.mailcc ?? "",
-          bcc: response?.mailbcc?? ""//setting up stuff
+          subject:  response?.mailSubject ?? "",
+          cc:       response?.mailcc ?? "",
+          bcc:      response?.mailbcc ?? ""
         },
       ]);
     } catch (err) {
@@ -227,7 +217,6 @@ export const PromptPage = () => {
     }
   };
 
-  // Allow editing body directly from the card
   const handleBodyChange = (id, newBody) => {
     setTurns((prev) =>
       prev.map((t) => (t.id === id ? { ...t, mailBody: newBody } : t))
@@ -237,7 +226,7 @@ export const PromptPage = () => {
   if (!pageVisibility) {
     window.location.assign("https://servercerbi.onrender.com/signin/check");
     return null;
-  }; // this can be above in the code
+  }
 
   const hasContent = turns.length > 0 || loading;
 
@@ -246,7 +235,6 @@ export const PromptPage = () => {
       <PromptNavbar />
 
       <main className={styles.main}>
-        {/* Thread or empty state */}
         <div className={styles.conversationArea}>
           {hasContent ? (
             <MailThread
@@ -256,7 +244,7 @@ export const PromptPage = () => {
             />
           ) : (
             <div className={styles.emptyState}>
-              <p>check</p>{/* check  */}
+              <p>check</p>
               <span className={styles.emptyTitle}>What's on your mind?</span>
               <span className={styles.emptySubtitle}>
                 Describe the mail you need and we'll draft it.
@@ -265,7 +253,6 @@ export const PromptPage = () => {
           )}
         </div>
 
-        {/* Input dock */}
         <div className={styles.inputDock}>
           <textarea
             ref={textareaRef}
