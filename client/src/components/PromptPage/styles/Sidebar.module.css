@@ -28,7 +28,8 @@
   width: 40px;
   height: 40px;
   min-width: 40px;
-  min-height: 40px;  /* ADD THIS */
+  min-height: 40px;
+  padding: 0;  /* ADD THIS — kills browser default button padding */
   border-radius: 10px;
   border: none;
   background: transparent;
@@ -37,7 +38,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;  /* ADD THIS */
+  overflow: hidden;
   transition: background 150ms, color 150ms;
   margin-bottom: 8px;
   flex-shrink: 0;
