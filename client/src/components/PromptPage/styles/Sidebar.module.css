@@ -191,9 +191,9 @@
 :root {
   --sb-bg: #f9f9f8;
   --sb-border: #e5e5e3;
-  --sb-icon: #9a9a96;
+  --sb-icon: #4a4a46;        /* was #9a9a96 — much more visible */
   --sb-icon-active: #1a1a18;
-  --sb-text: #3a3a38;
+  --sb-text: #1a1a18;        /* was #3a3a38 — stronger */
   --sb-hover: #efefed;
 }
 
