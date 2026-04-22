@@ -50,7 +50,7 @@ export const Navbar = () => {
       
       {/* LEFT */}
       <div className={styles.left}>
-        <Link to="/" className={styles.Navlogo}>दूत</Link>
+        <Link to="/" className={styles.Navlogo}>!Decided</Link>
       </div>
 
       {/* RIGHT */}
