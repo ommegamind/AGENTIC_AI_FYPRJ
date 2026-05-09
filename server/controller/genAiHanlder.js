@@ -2,17 +2,53 @@ import { GoogleGenAI } from "@google/genai";
 
 const ai = new GoogleGenAI({});
 
-//be a good idea to keep all the google related files in separate folders
+export const mailContentGenerator=async(promptText, uploadedFile)=>{
+    const userPrompt=` Return ONLY valid JSON.
+    Schema:
+    {
+    "mailBody": "string",
+    "receiver": "string | null",
+    "subject": "string",
+    "cc": ["array"] | null,
+    "bcc": ["array"] | null
+    }
+    Rules:
+    - No markdown
+    - No backticks
+    - No explanation text
+    - Only raw JSON response
+    User Prompt:${promptText}`;
 
-export const mailContentGenerator=async(promptText)=>{
-    const response = await ai.models.generateContent({
-        model: "gemini-2.5-flash",
-        contents: `prompt: ${promptText}! use the above prompt and return a js obj in the following format {"mailBody":"the content for the mail as requested above", "receiver": here from the above prompt extract the receiver they mentioned, "subject": the generated subject for that mail, "cc": the mentioned cc in array if nothing return null, "bcc": the mentioned bcc in array otherwise null} note:if multiple mentioned extract the first one} return a json string response that can be parsed to JSON.parse`,
-    });
+    let response;
 
-    const promptResponse= response.text.slice(7, -3);
+    if(uploadedFile){
+        response = await ai.models.generateContent({
+            model: "gemini-2.5-flash",
+            contents: [
+                {
+                    text: userPrompt
+                },
+                {
+                    fileData:
+                    {
+                        mimeType: uploadedFile.mimeType,
+                        fileUri:uploadedFile.uri,
+                    },
+                },
+            ],
+        });
+    }else{
+        response = await ai.models.generateContent({ 
+            model: "gemini-2.5-flash", 
+            contents: userPrompt });
+    }
 
-    const reply = JSON.parse(promptResponse);
+    const cleanedResponse= response.text
+    .replace(/```json/g, "")
+    .replace(/```/g, "")
+    .trim();
+
+    const reply = JSON.parse(cleanedResponse);
     
     return reply;
 }
