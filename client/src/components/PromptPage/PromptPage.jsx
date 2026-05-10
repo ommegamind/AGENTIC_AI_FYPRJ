@@ -258,11 +258,11 @@ export const PromptPage = () => {
             onKeyDown={handleKeyDown}
             disabled={loading}
           />
-          
+
           <div className={styles.dockAdd}>
             <button
               className={styles.dockAdd}
-              onClick={}
+              // onClick={}
               // disabled={!userPrompt.trim() || loading}
               aria-label="Attachment"
             >
