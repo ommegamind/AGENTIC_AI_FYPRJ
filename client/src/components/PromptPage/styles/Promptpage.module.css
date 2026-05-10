@@ -160,6 +160,14 @@
   gap: 6px;
 }
 
+.dockAdd {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 8px 10px;
+  gap: 6px;
+}
+
 /* ── Submit button ── */
 .submitBtn {
   width: 32px;
