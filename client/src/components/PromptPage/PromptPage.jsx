@@ -149,6 +149,12 @@ const SendIcon = () => (
   </svg>
 );
 
+const AddIcon = () => ( 
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 5V19M5 12H19" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+  </svg>
+);
+
 export const PromptPage = () => {
   const pageVisibility = useLoaderData();
 
@@ -240,6 +246,17 @@ export const PromptPage = () => {
           )}
         </div>
 
+        <div className={styles.dockBar}>
+          <button
+            className={styles.submitBtn}
+            onClick={handleSubmit}
+            disabled={!userPrompt.trim() || loading}
+            aria-label="Submit"
+          >
+            <AddIcon />
+          </button>
+        </div>
+        
         <div className={styles.inputDock}>
           <textarea
             ref={textareaRef}
