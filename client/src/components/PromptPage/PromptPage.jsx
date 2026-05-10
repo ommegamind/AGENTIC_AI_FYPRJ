@@ -246,18 +246,18 @@ export const PromptPage = () => {
           )}
         </div>
 
-        <div className={styles.dockBar}>
-          <button
-            className={styles.submitBtn}
-            onClick={handleSubmit}
-            disabled={!userPrompt.trim() || loading}
-            aria-label="Submit"
-          >
-            <AddIcon />
-          </button>
-        </div>
-        
         <div className={styles.inputDock}>
+          <div className={styles.dockBar}>
+            <button
+              className={styles.submitBtn}
+              onClick={handleSubmit}
+              disabled={!userPrompt.trim() || loading}
+              aria-label="Submit"
+            >
+              <AddIcon />
+            </button>
+          </div>
+
           <textarea
             ref={textareaRef}
             className={styles.textarea}
