@@ -248,6 +248,17 @@ export const PromptPage = () => {
 
         <div className={styles.inputDock}>
 
+          <div className={styles.dockAdd}>
+            <button
+              className={styles.dockAdd}
+              // onClick={}
+              // disabled={!userPrompt.trim() || loading}
+              aria-label="Attachment"
+            >
+              <AddIcon />
+            </button>
+          </div>
+
           <textarea
             ref={textareaRef}
             className={styles.textarea}
@@ -259,16 +270,6 @@ export const PromptPage = () => {
             disabled={loading}
           />
 
-          <div className={styles.dockAdd}>
-            <button
-              className={styles.dockAdd}
-              // onClick={}
-              // disabled={!userPrompt.trim() || loading}
-              aria-label="Attachment"
-            >
-              <AddIcon />
-            </button>
-          </div>
           <div className={styles.dockBar}>
             <button
               className={styles.submitBtn}

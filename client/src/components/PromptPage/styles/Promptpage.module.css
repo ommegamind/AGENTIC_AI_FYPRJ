@@ -169,10 +169,6 @@
   bottom: 10px;
 }
 
-.dockAdd:hover {
-  background-color: #c9c7c7;
-  transform: scale(1.05);
-}
 
 /* ── Submit button ── */
 .submitBtn {
