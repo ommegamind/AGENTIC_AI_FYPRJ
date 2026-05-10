@@ -117,7 +117,8 @@
   border-radius: 16px;
   box-shadow: var(--pp-shadow);
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  align-items: flex-end;
   gap: 0;
   overflow: hidden;
   transition: background 220ms, border-color 220ms, box-shadow 220ms;
@@ -162,11 +163,8 @@
 
 .dockAdd {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: flex-start;
-  position: absolute;
-  left: 10px;
-  bottom: 10px;
 }
 
 
